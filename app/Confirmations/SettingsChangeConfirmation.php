@@ -3,10 +3,11 @@
 namespace App\Confirmations;
 
 
+use App\Contracts\ConfirmationContract;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Confirmation;
 
-class SettingsChangeConfirmation
+class SettingsChangeConfirmation implements ConfirmationContract
 {
 
     /**

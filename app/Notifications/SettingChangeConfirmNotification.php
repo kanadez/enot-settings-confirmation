@@ -32,7 +32,7 @@ class SettingChangeConfirmNotification extends Notification implements ShouldQue
      */
     public function via($notifiable)
     {
-        return [$notifiable->prefferedNotifyWay()];
+        return [$notifiable->preferredNotifyWay()];
     }
 
     /**

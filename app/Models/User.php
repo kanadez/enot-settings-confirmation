@@ -61,7 +61,12 @@ class User extends Authenticatable
         return $this->hasMany(Setting::class);
     }
 
-    public function prefferedNotifyWay() // TODO сделать подсос из настроек способа уведомлений
+    /**
+     * Берет из настроек юзера предпочитительный канал уведомлений
+     *
+     * @return string
+     */
+    public function preferredNotifyWay(): string // TODO сделать подсос из настроек способа уведомлений
     {
         return 'telegram';
     }

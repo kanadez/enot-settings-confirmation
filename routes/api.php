@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\Dashboard\SettingsController;
+use App\Http\Controllers\Api\Dashboard\ConfirmationsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +34,7 @@ Route::middleware(["auth:sanctum"])->prefix("dashboard")->group(function() {
         Route::post("", [SettingsController::class, 'index'])->name("dashboard-settings");
         Route::get("{id}/edit", [SettingsController::class, 'edit'])->name("dashboard-settings-edit");
         Route::post("{id}/update", [SettingsController::class, 'update'])->name("dashboard-settings-update");
-        Route::post("{id}/confirm", [SettingsController::class, 'confirm'])->name("dashboard-settings-confirm");
+        Route::post("{id}/confirm", [ConfirmationsController::class, 'confirm'])->name("dashboard-settings-confirm");
     });
 
 });

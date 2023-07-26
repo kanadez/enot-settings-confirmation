@@ -18,7 +18,7 @@ class SettingsChangeConfirmation implements ConfirmationContract
         //
     }
 
-    public static function create(): int
+    public function create(): int
     {
         $confirmation_code = mt_rand(1000, 9999);;
 
@@ -31,7 +31,7 @@ class SettingsChangeConfirmation implements ConfirmationContract
         return $confirmation_code;
     }
 
-    public static function passed(): bool
+    public function passed(): bool
     {
         $last_confirm_try = Confirmation::where('user_id', Auth::user()->id)
                                             ->orderBy('created_at')->first();
@@ -39,7 +39,7 @@ class SettingsChangeConfirmation implements ConfirmationContract
         return (bool) $last_confirm_try->passed;
     }
 
-    public static function tryPass(int $code): bool
+    public function tryPass(int $code): bool
     {
         $last_confirm_try = Confirmation::where('user_id', Auth::user()->id)
             ->orderBy('created_at')->first();

@@ -2,8 +2,7 @@
 
 namespace App\Services;
 
-use App\Confirmations\SettingsChangeConfirmation;
-use App\Http\Requests\Api\UpdateSettingRequest;
+use App\Contracts\ConfirmationContract;
 use App\Models\Setting;
 use App\Notifications\SettingChangeConfirmNotification;
 use Illuminate\Support\Facades\Auth;
@@ -41,20 +40,20 @@ class UserSettings
     /**
      * @param int $id
      * @param array $data
+     * @param ConfirmationContract $confirmation
      * @return FunctionResult
      */
-    public function update(int $id, array $data)
+    public function update(int $id, array $data, ConfirmationContract $confirmation)
     {
-        $user = Auth::user();
-
-        if (SettingsChangeConfirmation::passed()) {
+        if ($confirmation->passed()) {
             $setting = Setting::findOrFail($id); // TODO переделать через репозиторий
             $setting->value = $data['value'];
             $setting->save();
 
             return Result::success(['need_confirm' => false]);
         } else {
-            $confirmation_code = SettingsChangeConfirmation::create();
+            $user = Auth::user();
+            $confirmation_code = $confirmation->create();
             $user->notify(new SettingChangeConfirmNotification($confirmation_code));
 
             return Result::success(['need_confirm' => true]);
@@ -64,13 +63,14 @@ class UserSettings
 
     /**
      * @param array $data
+     * @param ConfirmationContract $confirmation
      * @return FunctionResult
      */
-    public function confirm(array $data)
+    public function confirm(array $data, ConfirmationContract $confirmation)
     {
         $data->validated();
 
-        if (SettingsChangeConfirmation::tryPass($data['code'])) {
+        if ($confirmation->tryPass($data['code'])) {
             return Result::success();
         } else {
             return Result::error('Неверный код');

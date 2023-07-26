@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Dashboard;
 
+use App\Confirmations\SettingsChangeConfirmation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UpdateSettingRequest;
 use App\Services\UserSettings;
@@ -92,7 +93,8 @@ class SettingsController extends Controller
      */
     public function update(UpdateSettingRequest $request, $id)
     {
-        $update_result = $this->settings->update($id, $request->validated());
+        $confirmation = new SettingsChangeConfirmation();
+        $update_result = $this->settings->update($id, $request->validated(), $confirmation);
 
         return response()->json([
             'status' => $update_result->success,

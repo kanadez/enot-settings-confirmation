@@ -73,7 +73,7 @@ class UserSettings
         if ($confirmation->tryPass($data['code'])) {
             return Result::success();
         } else {
-            return Result::error('Неверный код');
+            return Result::error('Неверный либо просроченный код');
         }
 
     }

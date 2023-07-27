@@ -19,6 +19,14 @@ interface ConfirmationContract
     public function create(): int;
 
     /**
+     * Принимает попытку пройти подтверждение с кодом
+     *
+     * @param int $code
+     * @return bool
+     */
+    public function tryPass(int $code): bool;
+
+    /**
      * Проверяет, пройдено подтверждение или нет
      *
      * @return bool
@@ -26,10 +34,9 @@ interface ConfirmationContract
     public function passed(): bool;
 
     /**
-     * Принимает попытку пройти подтверждение с кодом
+     * Проверяет, просрочено подтверждение или нет
      *
-     * @param int $code
      * @return bool
      */
-    public function tryPass(int $code): bool;
+    public function expired(): bool;
 }

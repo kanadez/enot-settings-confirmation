@@ -83,6 +83,9 @@ export default {
             this.$store.dispatch('dashboardSettings/edit', {id: setting_id});
             this.isEditSettingModalOpen = true;
         },
+        confirmSetting(setting_id) {
+            this.isEditSettingConfirmModalOpen = true;
+        },
         closeEditSettingModal() {
             this.modalContents = null;
             this.isEditSettingModalOpen = false;

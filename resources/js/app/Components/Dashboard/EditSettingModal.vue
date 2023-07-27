@@ -46,16 +46,22 @@
                 <Errors v-if="this.errors" :errors="this.errors"/>
             </div>
         </div>
+
+        <EditSettingConfirmModal
+            v-if="isEditSettingConfirmModalOpen"
+            @confirmed="updateSetting(true)"
+        />
     </div>
 </template>
 
 <script>
 
 import Errors from "../../UI/Errors";
+import EditSettingConfirmModal from "../../Components/Dashboard/EditSettingConfirmModal";
 
 export default {
     name: "EditSettingModal",
-    components: {Errors},
+    components: {Errors, EditSettingConfirmModal},
     props: {
         title: String,
         formData: Object,
@@ -70,6 +76,7 @@ export default {
     data() {
         return {
             isSending: false,
+            isEditSettingConfirmModalOpen: false,
             params: {
                 id: null,
                 value: '',
@@ -83,8 +90,14 @@ export default {
             if (click.target.classList.contains('modal-container')) this.$emit('close');
         },
 
-        updateSetting() {
-            if (this.isSending) return;
+        updateSetting(confirmed = false) {
+            if (confirmed === false) {
+                this.isEditSettingConfirmModalOpen = true;
+                return false;
+            }
+
+            if (this.isSending) return false;
+
             this.errors = null;
             this.isSending = true;
             this.$store.dispatch(`dashboardSettings/update`, this.params).then(

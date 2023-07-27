@@ -58,14 +58,10 @@ export default {
     components: {Errors},
     props: {
         title: String,
-        formData: Object,
-        settingData: Object,
     },
     computed: {},
     watch: {
-        settingData: function () {
-            this.fillForm();
-        }
+
     },
     data() {
         return {
@@ -87,7 +83,7 @@ export default {
             if (this.isSending) return;
             this.errors = null;
             this.isSending = true;
-            this.$store.dispatch(`dashboardSettings/update`, this.params).then(
+            this.$store.dispatch(`dashboardSettings/confirm`, this.params).then(
                 success => {
                     this.clearForm();
                     this.$emit('confirmed');

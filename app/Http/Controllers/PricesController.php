@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
-class AppController extends Controller
+class PricesController extends Controller
 {
     public function index() {
-        return view('home');
+        return view('prices');
     }
 
     public function test(Request $request) {

@@ -1,0 +1,43 @@
+.gallery {
+    --s: 150px;
+    --g: 10px;
+    --f: 1.5;
+    display: grid;
+    gap: var(--g);
+    width: calc(6*var(--s) + 2*var(--g));
+    height: calc(4*var(--s) + 2*var(--g));
+    aspect-ratio: 1;
+    grid-template-columns: repeat(3,auto);
+}
+
+@media screen and ( max-width: 782px ) {
+    .gallery {
+        --s: 44px;
+        --g: 10px;
+        --f: 1.5;
+        display: grid;
+        gap: var(--g);
+        width: calc(6*var(--s) + 2*var(--g));
+        height: calc(8*var(--s) + 2*var(--g));
+        aspect-ratio: 1;
+        grid-template-columns: repeat(2,auto);
+    }
+}
+
+.gallery > img {
+    width: 0;
+    height: 0;
+    min-height: 100%;
+    min-width: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    filter: grayscale(80%);
+    transition: .15s linear;
+}
+
+.gallery img:hover{
+    filter: grayscale(0);
+    width:  calc(var(--s)*var(--f));
+    height: calc(var(--s)*var(--f));
+}
+

@@ -11,9 +11,16 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .vue()
-    .postCss('resources/css/app.css', 'public/css', [
-        require("tailwindcss"),
-        require("autoprefixer")
-    ]).version();
+mix.scripts([
+        "resources/js/core.js",
+        "resources/js/reface.js",
+    ], 'public/js/all.combined.js')
+    .copy('resources/fonts/', 'public/fonts')
+    .copy('resources/img/', 'public/img')
+    .css('resources/css/gallery.css', 'public/css')
+    .css('resources/css/style.css', 'public/css')
+    .css('resources/css/style1.css', 'public/css')
+    .css('resources/css/style2.css', 'public/css')
+    .css('resources/css/header-footer.css', 'public/css')
+    .version();
+

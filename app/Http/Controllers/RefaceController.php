@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
-class AppController extends Controller
+class RefaceController extends Controller
 {
     public function index() {
-        return view('home');
+        return view('reface');
     }
 
     public function test(Request $request) {

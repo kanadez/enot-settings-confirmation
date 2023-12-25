@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\RefaceController;
+use App\Http\Controllers\PricesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{all?}', [AppController::class, 'index'])->where('all', '^(?!api).*$');
+Route::get("/", [AppController::class, 'index'])->name("index");
+Route::get("/reface", [RefaceController::class, 'index'])->name("reface");
+Route::get("/prices", [PricesController::class, 'index'])->name("prices");
